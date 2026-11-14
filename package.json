@@ -1,5 +1,5 @@
 {
-  "name": "vscode-mindmap",
+  "name": "text-mindmap",
   "displayName": "Text Mindmap",
   "description": "テキスト（インデント / Markdown 風）で書いたマインドマップを VS Code でプレビュー。Markdown への埋め込みや HTML 書き出しにも対応。",
   "version": "0.1.0",
@@ -8,12 +8,12 @@
   "icon": "images/icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bamchoh/vscode-mindmap.git"
+    "url": "https://github.com/bamchoh/text-mindmap.git"
   },
   "bugs": {
-    "url": "https://github.com/bamchoh/vscode-mindmap/issues"
+    "url": "https://github.com/bamchoh/text-mindmap/issues"
   },
-  "homepage": "https://github.com/bamchoh/vscode-mindmap#readme",
+  "homepage": "https://github.com/bamchoh/text-mindmap#readme",
   "galleryBanner": {
     "color": "#364fc7",
     "theme": "dark"
