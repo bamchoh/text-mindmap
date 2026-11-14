@@ -1,0 +1,185 @@
+{
+  "name": "vscode-mindmap",
+  "displayName": "Text Mindmap",
+  "description": "テキスト（インデント / Markdown 風）で書いたマインドマップを VS Code でプレビュー。Markdown への埋め込みや HTML 書き出しにも対応。",
+  "version": "0.1.0",
+  "publisher": "bamchoh",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bamchoh/vscode-mindmap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bamchoh/vscode-mindmap/issues"
+  },
+  "homepage": "https://github.com/bamchoh/vscode-mindmap#readme",
+  "galleryBanner": {
+    "color": "#364fc7",
+    "theme": "dark"
+  },
+  "keywords": [
+    "mindmap",
+    "mind map",
+    "マインドマップ",
+    "markdown",
+    "outline",
+    "diagram"
+  ],
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Visualization",
+    "Programming Languages",
+    "Other"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:mindmap"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "mindmap",
+        "aliases": [
+          "Mindmap",
+          "mindmap"
+        ],
+        "extensions": [
+          ".mindmap"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "mindmap",
+        "scopeName": "source.mindmap",
+        "path": "./syntaxes/mindmap.tmLanguage.json"
+      },
+      {
+        "scopeName": "markdown.mindmap.codeblock",
+        "path": "./syntaxes/mindmap-markdown-injection.json",
+        "injectTo": [
+          "text.html.markdown"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.mindmap": "mindmap"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "mindmap.showPreview",
+        "title": "Open Preview",
+        "category": "Mindmap",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "mindmap.showPreviewToSide",
+        "title": "Open Preview to the Side",
+        "category": "Mindmap",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "mindmap.exportMarkdownHtml",
+        "title": "Export Markdown as HTML",
+        "category": "Mindmap",
+        "icon": "$(export)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "mindmap.showPreviewToSide",
+          "when": "editorLangId == mindmap",
+          "group": "navigation"
+        },
+        {
+          "command": "mindmap.exportMarkdownHtml",
+          "when": "activeWebviewPanelId == 'markdown.preview' || activeCustomEditorId == 'vscode.markdown.preview.editor'",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "mindmap.showPreview",
+          "when": "resourceLangId == mindmap",
+          "group": "navigation"
+        },
+        {
+          "command": "mindmap.exportMarkdownHtml",
+          "when": "resourceLangId == markdown",
+          "group": "navigation"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "mindmap.exportMarkdownHtml",
+          "when": "resourceLangId == markdown"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "mindmap.exportMarkdownHtml",
+          "when": "editorLangId == markdown || activeWebviewPanelId == 'markdown.preview' || activeCustomEditorId == 'vscode.markdown.preview.editor'"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "mindmap.showPreviewToSide",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "editorLangId == mindmap"
+      }
+    ],
+    "configuration": {
+      "title": "Mindmap",
+      "properties": {
+        "mindmap.layout": {
+          "type": "string",
+          "enum": [
+            "both",
+            "right",
+            "down",
+            "tree"
+          ],
+          "enumDescriptions": [
+            "ルートの左右にバランスよく枝を広げる",
+            "すべての枝を右側に広げる",
+            "上から下へ広げる（組織図型）",
+            "エクスプローラーのような字下げツリー"
+          ],
+          "default": "both",
+          "markdownDescription": "マインドマップのレイアウト。ファイル内に `// layout: down` のように書くと、そのファイルだけ変更できます。"
+        },
+        "mindmap.maxNodeWidth": {
+          "type": "number",
+          "default": 240,
+          "minimum": 60,
+          "description": "ノードの最大幅（px）。超えるテキストは折り返されます。"
+        },
+        "mindmap.export.embedImages": {
+          "type": "boolean",
+          "default": true,
+          "description": "Markdown を HTML に書き出すとき、ローカルの画像を HTML に埋め込みます（data URI）。オフにすると元の相対パスのまま出力します。"
+        }
+      }
+    },
+    "markdown.markdownItPlugins": true,
+    "markdown.previewScripts": [
+      "./media/renderer.js",
+      "./media/markdown-preview.js"
+    ],
+    "markdown.previewStyles": [
+      "./media/markdown-preview.css"
+    ]
+  },
+  "scripts": {
+    "test": "node test/parser.test.js",
+    "package": "npx @vscode/vsce package",
+    "publish": "npx @vscode/vsce publish"
+  }
+}

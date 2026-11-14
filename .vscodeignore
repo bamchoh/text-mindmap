@@ -1,0 +1,7 @@
+.vscode/**
+.gitignore
+test/**
+examples/**
+images/**
+!images/icon.png
+*.vsix

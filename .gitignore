@@ -1,0 +1,4 @@
+node_modules/
+*.vsix
+# ローカルの確認用ファイル（第三者の画像のため公開しない）
+examples/image.png

@@ -1,0 +1,10 @@
+.mindmap-embed {
+  margin: 1em 0;
+  overflow-x: auto;
+}
+
+.mindmap-embed svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,111 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Mindmap",
+  "scopeName": "source.mindmap",
+  "patterns": [
+    {
+      "name": "comment.line.double-slash.mindmap",
+      "match": "^\\s*//(?:\\s*(layout)\\s*:\\s*([a-zA-Z]+)\\s*$)?.*$",
+      "captures": {
+        "1": {
+          "name": "keyword.other.directive.mindmap"
+        },
+        "2": {
+          "name": "constant.language.layout.mindmap"
+        }
+      }
+    },
+    {
+      "name": "markup.quote.mindmap",
+      "match": "^\\s*>.*$"
+    },
+    {
+      "name": "markup.heading.mindmap",
+      "begin": "^(#{1,6})\\s+",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.heading.mindmap"
+        }
+      },
+      "end": "$",
+      "contentName": "entity.name.section.mindmap",
+      "patterns": [
+        {
+          "include": "#node"
+        }
+      ]
+    },
+    {
+      "begin": "^\\s*([-*+]|\\d+[.)])\\s+",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.list.begin.mindmap"
+        }
+      },
+      "end": "$",
+      "patterns": [
+        {
+          "include": "#node"
+        }
+      ]
+    },
+    {
+      "begin": "^(?=[^\\s])",
+      "end": "$",
+      "contentName": "entity.name.section.mindmap",
+      "patterns": [
+        {
+          "include": "#node"
+        }
+      ]
+    },
+    {
+      "include": "#node"
+    }
+  ],
+  "repository": {
+    "node": {
+      "patterns": [
+        {
+          "match": "\\G\\[[ xX]\\]",
+          "name": "keyword.other.checkbox.mindmap"
+        },
+        {
+          "match": "\\s*\\{(#[0-9a-fA-F]{3,8}|[a-zA-Z]+)\\}\\s*$",
+          "name": "constant.other.color.mindmap"
+        },
+        {
+          "match": "\\*\\*.+?\\*\\*",
+          "name": "markup.bold.mindmap"
+        },
+        {
+          "match": "~~.+?~~",
+          "name": "markup.strikethrough.mindmap"
+        },
+        {
+          "match": "`[^`]+`",
+          "name": "markup.inline.raw.mindmap"
+        },
+        {
+          "match": "(\\[)([^\\]]+)(\\])(\\()([^)\\s]+)(\\))",
+          "captures": {
+            "2": {
+              "name": "string.other.link.title.mindmap"
+            },
+            "5": {
+              "name": "markup.underline.link.mindmap"
+            }
+          }
+        },
+        {
+          "match": "https?://[^\\s<>()]+",
+          "name": "markup.underline.link.mindmap"
+        },
+        {
+          "match": "\\*(?!\\s)[^*]+?(?<!\\s)\\*",
+          "name": "markup.italic.mindmap"
+        }
+      ]
+    }
+  }
+}

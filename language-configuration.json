@@ -1,0 +1,22 @@
+{
+  "comments": {
+    "lineComment": "//"
+  },
+  "brackets": [
+    ["(", ")"],
+    ["[", "]"],
+    ["{", "}"]
+  ],
+  "autoClosingPairs": [
+    { "open": "(", "close": ")" },
+    { "open": "[", "close": "]" },
+    { "open": "{", "close": "}" },
+    { "open": "「", "close": "」" }
+  ],
+  "onEnterRules": [
+    {
+      "beforeText": "^\\s*[-*+]\\s+\\S.*$",
+      "action": { "indent": "none", "appendText": "- " }
+    }
+  ]
+}
