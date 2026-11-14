@@ -1,126 +1,138 @@
 # Text Mindmap
 
-テキストで書いたマインドマップを VS Code 上でプレビューする拡張機能です。インデントで書くだけで、Git で差分管理しながらマインドマップを作れます。
+English | [日本語](README.ja.md)
 
-![プレビュー](images/preview.png)
+Write mind maps as plain text and preview them in VS Code. Just indent your ideas — the result is a diff-friendly file you can keep in Git.
 
-## 主な機能
+![Preview](images/preview-en.png)
 
-- インデント（または Markdown の見出し・箇条書き）で書くシンプルな記法
-- ズーム・パン・折りたたみ、ノードクリックでソースへジャンプ
-- 4 種類のレイアウト（左右・右・組織図・ツリー）
-- 太字・リンク・チェックボックス・枝の色などの装飾、ノードのメモ
-- フォーカス（枝だけ表示）と検索
-- SVG / PNG 書き出し、画像のクリップボードコピー
-- Markdown プレビューへの埋め込み、HTML への書き出し
+## Features
 
-![組織図レイアウト](images/layout-down.png)
+- Simple syntax: indentation (or Markdown headings and lists) defines the tree
+- Zoom, pan and collapse branches; click a node to jump to its line
+- Four layouts: both sides, right only, org chart and tree
+- Inline decorations (bold, links, checkboxes, branch colors) and notes on nodes
+- Focus on a single branch and search across the map
+- Export to SVG / PNG, or copy the image to the clipboard
+- Embed mind maps in the Markdown preview and export Markdown to HTML
+- Outline view and breadcrumbs
 
-## 記法（`.mindmap` ファイル）
+![Org chart layout](images/layout-down-en.png)
+
+## Syntax (`.mindmap` files)
 
 ```
 // layout: both
-中心テーマ
-  - 枝 A
-    - 葉 A-1
-    > 葉 A-1 のメモ
-    - 葉 A-2
-  - 枝 B {teal}
-    葉 B-1        ← 箇条書き記号は省略可
+Central topic
+  - Branch A
+    - Leaf A-1
+    > A note for leaf A-1
+    - Leaf A-2
+  - Branch B {teal}
+    Leaf B-1        ← bullets are optional
 ```
 
-- インデント（スペース・タブ・全角スペース）の深さで親子関係を表します
-- 行頭の `-` `*` `+` `1.` は省略できます
-- `# 見出し` 形式も使えます。見出しの下の箇条書きは、その見出しの子になります
-- `//` で始まる行はコメントです
-- `>` で始まる行は、直前のノードのメモになります（複数行可）。プレビューではノード右上に印が付き、ホバーで表示されます
-- `// layout: down` のように書くと、そのファイルのレイアウトを指定できます（`both` / `right` / `down` / `tree`）
-- トップレベルの項目が複数ある場合は、ファイル名がルートになります
+- Indentation (spaces, tabs or full-width spaces) defines parent–child relationships
+- Leading `-`, `*`, `+` or `1.` markers are optional
+- `# Headings` also work; list items below a heading become its children
+- Lines starting with `//` are comments
+- Lines starting with `>` become a note on the node above (multiple lines allowed). Nodes with notes get a dot in the corner, and the note appears on hover
+- `// layout: down` sets the layout for that file (`both` / `right` / `down` / `tree`)
+- If there is more than one top-level item, the file name becomes the root
 
-### 装飾記法
+### Decorations
 
-| 書き方 | 表示 |
+| Syntax | Result |
 | --- | --- |
-| `**太字**` / `*斜体*` / `~~取り消し線~~` / `` `code` `` | 文字装飾 |
-| `[テキスト](https://...)` / `https://...` | クリックできるリンク（相対パスならファイルを開く） |
-| 行頭の `[ ]` / `[x]` | チェックボックス（プレビューでクリックすると切り替わる） |
-| 行末の `{red}` / `{#e03131}` | そのノードと子孫の枝の色 |
+| `**bold**` / `*italic*` / `~~strike~~` / `` `code` `` | Text styles |
+| `[text](https://...)` / `https://...` | Clickable links (relative paths open the file in VS Code) |
+| `[ ]` / `[x]` at the start of a line | Checkbox — click it in the preview to toggle |
+| `{red}` / `{#e03131}` at the end of a line | Color of that node and its branch |
 
-## レイアウト
+## Layouts
 
-| 値 | 形 |
+| Value | Shape |
 | --- | --- |
-| `both` | ルートの左右に広がる（既定） |
-| `right` | 右側だけに広がる |
-| `down` | 上から下へ広がる組織図型（葉だけの枝は縦に並ぶ） |
-| `tree` | エクスプローラーのような字下げツリー |
+| `both` | Branches spread to the left and right of the root (default) |
+| `right` | All branches on the right |
+| `down` | Top-down org chart (branches with only leaves are stacked vertically) |
+| `tree` | Indented tree, like a file explorer |
 
-プレビューのツールバーで一時的に切り替えることもできます。
+You can also switch layouts temporarily from the preview toolbar.
 
-## Markdown への埋め込み
+## Markdown integration
 
-Markdown ファイルに ` ```mindmap ` のコードブロックを書くと、VS Code 標準の Markdown プレビューでマインドマップとして表示されます。
+### Embedding in the Markdown preview
 
-![Markdown への埋め込み](images/markdown.png)
+Write a ` ```mindmap ` code block in any Markdown file and VS Code's built-in Markdown preview renders it as a mind map.
+
+![Embedded in Markdown](images/markdown-en.png)
 
 ````markdown
 ```mindmap
 // layout: down
-リリース計画
-  - 準備
-  - 実装
+Release plan
+  - Prepare
+  - Implement
 ```
 ````
 
-### HTML への書き出し
+### Exporting Markdown to HTML
 
-Markdown を、マインドマップ入りの単体 HTML ファイルとして書き出せます。
+Export a Markdown file to a single, self-contained HTML file — mind maps included. Run it from:
 
-- Markdown プレビューのタイトルバーにある書き出しアイコン
-- エディタタブ・エクスプローラーの右クリックメニュー
-- コマンドパレットの `Mindmap: Export Markdown as HTML`
+- the export icon in the Markdown preview's title bar
+- the context menu of an editor tab or the Explorer
+- the Command Palette: `Mindmap: Export Markdown as HTML`
 
-変換には VS Code 標準の Markdown エンジンを使うので、見た目はプレビューとほぼ同じです。描画用のスクリプトと CSS は HTML に埋め込まれるため、ファイル 1 つで表示できます（ブラウザのダークモードにも対応）。
+The conversion uses VS Code's own Markdown engine, so the output looks just like the preview. Scripts and styles are embedded, so the file works on its own (and follows the browser's dark mode).
 
-ローカルの画像（相対パス・`/` 始まりのワークスペースルートからのパス・絶対パス）も HTML に埋め込まれます。`https://` の画像はそのまま参照し、見つからない画像はパスのまま残して警告を表示します。埋め込みたくない場合は設定 `mindmap.export.embedImages` をオフにしてください。
+Local images — relative paths, workspace-root paths starting with `/`, and absolute paths — are embedded into the HTML as well. `https://` images are referenced as-is; missing images are left as paths and reported in a warning. Turn off `mindmap.export.embedImages` to keep image paths instead.
 
-## アウトライン
+## Outline
 
-ノードの階層が VS Code の「アウトライン」パネルとパンくずリストに表示されます。
+The node hierarchy appears in VS Code's Outline view and in the breadcrumbs.
 
-## プレビューの操作
+## Preview controls
 
-| 操作 | 方法 |
+| Action | How |
 | --- | --- |
-| プレビューを横に開く | エディタ右上のプレビューアイコン / `Ctrl+K V` |
-| プレビューを開く | コマンドパレットで `Mindmap: Open Preview` |
-| ズーム | マウスホイール / `+` `-` |
-| 移動 | ドラッグ |
-| 全体表示 | `Fit` ボタン / `F` |
-| 折りたたみ | ノード横の ○ をクリック |
-| ソースへジャンプ | ノードをクリック |
-| フォーカス（その枝だけ表示） | ノードをダブルクリック。左上のパンくずか `Esc` で戻る |
-| 検索 | `検索` ボタン / `Ctrl+F`。`Enter` / `Shift+Enter` で次・前へ |
-| 画像として保存 | `SVG` / `PNG` ボタン |
-| 画像をコピー | `コピー` ボタン（PNG としてクリップボードへ） |
+| Open preview to the side | Preview icon in the editor title bar / `Ctrl+K V` |
+| Open preview | Command Palette: `Mindmap: Open Preview` |
+| Zoom | Mouse wheel / `+` `-` |
+| Pan | Drag |
+| Fit to window | `Fit` button / `F` |
+| Collapse / expand | Click the ○ next to a node |
+| Jump to source | Click a node |
+| Focus on a branch | Double-click a node; go back with the breadcrumbs or `Esc` |
+| Search | Search button (`検索`) / `Ctrl+F`; `Enter` / `Shift+Enter` for next / previous |
+| Save as image | `SVG` / `PNG` buttons |
+| Copy image | Copy button (`コピー`) — copies a PNG to the clipboard |
 
-コマンドパレットから実行すれば、Markdown など他の形式のファイルもプレビューできます。
+Run the command from the Command Palette to preview other file types, such as Markdown, as a mind map.
 
-## 設定
+> The preview toolbar labels are currently in Japanese.
 
-- `mindmap.layout`: 既定のレイアウト（`both` / `right` / `down` / `tree`）
-- `mindmap.maxNodeWidth`: ノードの最大幅（px）。超えると折り返します（既定 240）
+## Settings
 
-## 開発
+- `mindmap.layout`: default layout (`both` / `right` / `down` / `tree`)
+- `mindmap.maxNodeWidth`: maximum node width in pixels; longer text wraps (default `240`)
+- `mindmap.export.embedImages`: embed local images when exporting Markdown to HTML (default `true`)
 
-```sh
-npm test             # パーサーのテスト
-```
-
-拡張機能を読み込んだウィンドウで試すには:
+## Development
 
 ```sh
-code --extensionDevelopmentPath=D:\dev\vscode-mindmap D:\dev\vscode-mindmap\examples
+npm test             # parser tests
 ```
 
-パッケージ化: `npm run package`（`@vscode/vsce` を使います）
+To try the extension in a new window:
+
+```sh
+code --extensionDevelopmentPath=. examples
+```
+
+Package with `npm run package` (uses `@vscode/vsce`).
+
+## License
+
+[MIT](LICENSE)

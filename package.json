@@ -1,8 +1,8 @@
 {
   "name": "text-mindmap",
   "displayName": "Text Mindmap",
-  "description": "テキスト（インデント / Markdown 風）で書いたマインドマップを VS Code でプレビュー。Markdown への埋め込みや HTML 書き出しにも対応。",
-  "version": "0.1.0",
+  "description": "Write mind maps as plain text (indentation / Markdown-style) and preview them in VS Code. Embed them in Markdown and export to HTML.",
+  "version": "0.1.1",
   "publisher": "bamchoh",
   "license": "MIT",
   "icon": "images/icon.png",
